@@ -1,0 +1,15 @@
+{
+    "KPackageStructure": "Plasma/LookAndFeel",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Alnix"
+            }
+        ],
+        "Description": "Breeze with Alnix wallpapers",
+        "Id": "org.alnix.desktop",
+        "License": "GPL-3.0-or-later",
+        "Name": "Alnix"
+    },
+    "X-Plasma-API": "5.0"
+}

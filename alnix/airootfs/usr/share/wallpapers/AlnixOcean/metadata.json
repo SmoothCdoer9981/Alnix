@@ -1,0 +1,12 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "LagTech"
+            }
+        ],
+        "Id": "AlnixOcean",
+        "License": "GPL-3.0-or-later",
+        "Name": "Alnix Ocean"
+    }
+}

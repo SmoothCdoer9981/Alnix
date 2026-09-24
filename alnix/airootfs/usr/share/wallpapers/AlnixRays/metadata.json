@@ -1,0 +1,12 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "LagTech"
+            }
+        ],
+        "Id": "AlnixWaves",
+        "License": "GPL-3.0-or-later",
+        "Name": "Alnix Waves"
+    }
+}
