@@ -87,3 +87,9 @@ To add software to Alnix, add it to `alnix/packages.x86_64`. Because the install
 Alnix is licensed under the [GNU General Public License v3.0](LICENSE).
 
 Alnix is not affiliated with or endorsed by Arch Linux.
+
+## Collaborators
+
+If you are into expermental package managers then try out...
+
+https://github.com/shroomstech/curse
