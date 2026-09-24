@@ -1,0 +1,14 @@
+# remove from airootfs!
+# Replace the Arch Linux os-release and issue shipped by the filesystem package with Alnix branding.
+
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = filesystem
+
+[Action]
+Description = Applying Alnix branding to /usr/lib/os-release and /etc/issue...
+When = PostTransaction
+Depends = coreutils
+Exec = /bin/sh -c "cp -f /usr/share/alnix/os-release /usr/lib/os-release && cp -f /usr/share/alnix/issue /etc/issue"

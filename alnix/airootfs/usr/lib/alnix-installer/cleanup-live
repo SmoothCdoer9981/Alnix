@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# Run by the installer inside the newly copied system. Removes everything that
+# only belongs to the live session and restores normal defaults.
+set -euo pipefail
+
+# Live user, passwordless root and live-only privileges.
+userdel --remove live 2>/dev/null || true
+usermod --password '!*' root
+rm -f /etc/sudoers.d/10-live /etc/sddm.conf.d/autologin.conf
+rm -rf /etc/systemd/system/getty@tty1.service.d
+
+# Live-only services and settings.
+rm -f /etc/systemd/system/{choose-mirror,livecd-talk,livecd-alsa-unmuter,pacman-init}.service \
+      /etc/systemd/system/etc-pacman.d-gnupg.mount \
+      /etc/systemd/system/dbus-org.freedesktop.network1.service
+rm -rf /etc/systemd/system/systemd-networkd-wait-online.service.d
+rm -f /etc/systemd/system-generators/systemd-gpt-auto-generator
+rm -f /etc/systemd/journald.conf.d/volatile-storage.conf \
+      /etc/systemd/logind.conf.d/do-not-suspend.conf \
+      /etc/systemd/resolved.conf.d/archiso.conf \
+      /etc/systemd/network/20-{ethernet,wlan,wwan}.network
+rm -f /etc/ssh/sshd_config.d/10-archiso.conf
+rm -f /etc/motd /root/.automated_script.sh /root/.zlogin
+rm -f /usr/local/bin/{choose-mirror,Installation_guide,livecd-sound,alnix-install} \
+      /usr/local/share/applications/calamares.desktop \
+      /usr/share/applications/alnix-install.desktop
+
+# Initramfs: drop the archiso hooks and use the stock kernel preset.
+rm -f /etc/mkinitcpio.conf.d/archiso.conf
+cat > /etc/mkinitcpio.d/linux.preset <<'PRESET'
+# mkinitcpio preset file for the 'linux' package
+
+ALL_kver="/boot/vmlinuz-linux"
+
+PRESETS=('default')
+
+default_image="/boot/initramfs-linux.img"
+PRESET
+
+# Packages that are only needed by the live session and the installer.
+mapfile -t live_packages < <(pacman -Qq calamares ckbcomp mkinitcpio-archiso livecd-sounds 2>/dev/null || true)
+if (( ${#live_packages[@]} )); then
+    pacman -Rns --noconfirm "${live_packages[@]}"
+fi
+
+# Remove enable-symlinks left pointing at units deleted above.
+find /etc/systemd/system -xtype l -delete
+
+# Keep the Alnix name in /usr/lib/os-release across filesystem package updates.
+install -Dm644 /usr/share/alnix/alnix-branding.hook /etc/pacman.d/hooks/alnix-branding.hook
+
+# The pacman keyring was a tmpfs in the live session; create a real one.
+rm -rf /etc/pacman.d/gnupg
+pacman-key --init
+pacman-key --populate archlinux
+gpgconf --homedir /etc/pacman.d/gnupg --kill all || true

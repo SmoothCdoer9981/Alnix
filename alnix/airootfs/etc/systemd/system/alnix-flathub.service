@@ -1,0 +1,15 @@
+[Unit]
+Description=Add the Flathub app store to Discover
+Wants=network-online.target
+After=network-online.target
+ConditionPathExists=!/var/lib/alnix/flathub-added
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/flatpak remote-add --system --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+ExecStartPost=/usr/bin/install -Dm644 /dev/null /var/lib/alnix/flathub-added
+Restart=on-failure
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target

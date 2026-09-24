@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# Run by the installer inside the new system after the bootloader is installed.
+# Sets up the firewall and snapshots, then takes the first snapshot.
+set -euo pipefail
+
+# Firewall: block incoming connections, allow outgoing ones.
+sed -i 's/^ENABLED=no/ENABLED=yes/' /etc/ufw/ufw.conf
+
+# Snapshots are only possible on Btrfs with the @snapshots subvolume mounted.
+if [[ "$(stat -f -c %T /)" == btrfs ]] && btrfs subvolume show /.snapshots &>/dev/null; then
+    sed -e 's/^SUBVOLUME=.*/SUBVOLUME="\/"/' \
+        -e 's/^ALLOW_GROUPS=.*/ALLOW_GROUPS="wheel"/' \
+        -e 's/^SYNC_ACL=.*/SYNC_ACL="yes"/' \
+        -e 's/^NUMBER_LIMIT=.*/NUMBER_LIMIT="10"/' \
+        -e 's/^NUMBER_LIMIT_IMPORTANT=.*/NUMBER_LIMIT_IMPORTANT="5"/' \
+        -e 's/^TIMELINE_CREATE=.*/TIMELINE_CREATE="no"/' \
+        /usr/share/snapper/config-templates/default > /etc/snapper/configs/root
+    chmod 640 /etc/snapper/configs/root
+    if grep -q '^SNAPPER_CONFIGS=' /etc/conf.d/snapper; then
+        sed -i 's/^SNAPPER_CONFIGS=.*/SNAPPER_CONFIGS="root"/' /etc/conf.d/snapper
+    else
+        echo 'SNAPPER_CONFIGS="root"' >> /etc/conf.d/snapper
+    fi
+    chmod 750 /.snapshots
+
+    systemctl enable snapper-cleanup.timer grub-btrfsd.service
+
+    # A permanent baseline to return to, then add it to the GRUB menu.
+    snapper --no-dbus -c root create --description "Fresh Alnix install"
+    grub-mkconfig -o /boot/grub/grub.cfg
+fi
+
+# The installer is no longer needed in the installed system.
+rm -rf /etc/calamares /usr/lib/alnix-installer

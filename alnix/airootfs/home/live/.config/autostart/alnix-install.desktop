@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Install Alnix
+GenericName=System Installer
+Comment=Install Alnix on this computer
+Exec=alnix-install
+Icon=alnix-logo
+Terminal=false
+Categories=Qt;System;

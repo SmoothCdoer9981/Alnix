@@ -1,0 +1,3 @@
+#!/bin/sh
+# Start the Alnix installer as root, keeping the live session's display.
+exec sudo -E calamares "$@"

@@ -1,0 +1,33 @@
+---
+componentName: alnix
+
+welcomeStyleCalamares: false
+welcomeExpandingLogo: true
+windowExpanding: normal
+windowSize: 900px,600px
+windowPlacement: center
+sidebar: widget
+navigation: widget
+
+strings:
+    productName: Alnix
+    shortProductName: Alnix
+    version: rolling
+    shortVersion: rolling
+    versionedName: Alnix
+    shortVersionedName: Alnix
+    bootloaderEntryName: Alnix
+
+images:
+    productIcon: "logo.png"
+    productLogo: "logo.png"
+    productWelcome: "welcome.png"
+
+style:
+    SidebarBackground: "#1b1b1b"
+    SidebarText: "#ffffff"
+    SidebarTextCurrent: "#ffffff"
+    SidebarBackgroundCurrent: "#1793d1"
+
+slideshow: "show.qml"
+slideshowAPI: 2
