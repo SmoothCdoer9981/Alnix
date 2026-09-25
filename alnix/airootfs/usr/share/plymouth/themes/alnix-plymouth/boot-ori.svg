@@ -1,0 +1,14 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 260" width="220" height="260">
+	<defs>
+		<image width="150" height="150" id="img1" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2IiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjRkZGRkZGIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0ZGRkZGRiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHBhdGggZmlsbD0idXJsKCNnKSIgZD0iTTEyOCAxNiBMMjM2IDIzNiBIMTkwIEwxMjggMTA0IEw2NiAyMzYgSDIwIFoiLz4KICA8cGF0aCBmaWxsPSJ1cmwoI2cpIiBkPSJNOTIgMTk2IFExMjggMTYwIDE2NCAxOTYgTDE1MiAyMTIgUTEyOCAxODggMTA0IDIxMiBaIi8+Cjwvc3ZnPgo="/>
+	</defs>
+	<style>
+	</style>
+	<g id="Layer1">
+	</g>
+	<g>
+		<g id="Layer2">
+			<use  href="#img1" transform="matrix(1,0,0,1,35,55)"/>
+		</g>
+	</g>
+</svg>

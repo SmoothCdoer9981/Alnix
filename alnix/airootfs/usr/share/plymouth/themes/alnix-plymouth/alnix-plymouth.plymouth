@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=alnix-plymouth
+Description=Alnix Plymouth theme by - Alex Tech
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/alnix-plymouth
+ScriptFile=/usr/share/plymouth/themes/alnix-plymouth/alnix-plymouth.script
