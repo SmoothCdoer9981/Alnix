@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Build the AUR packages Alnix needs (the Calamares installer) into a local
 # pacman repository at repo/x86_64, which build-iso.sh feeds to mkarchiso.
+# Also builds the larp package for now
 #
 # Packages are built as an unprivileged user inside a clean Arch Linux chroot,
 # so the result does not depend on (or touch) the host system's packages.
@@ -16,7 +17,7 @@ chroot_dir="${root_dir}/work/buildroot"
 src_dir="${root_dir}/work/aur"
 
 # Built in this order; later packages may depend on earlier ones.
-aur_packages=(ckbcomp calamares)
+aur_packages=(ckbcomp calamares larp)
 
 if (( EUID != 0 )); then
     echo "This script must be run as root: sudo $0" >&2
